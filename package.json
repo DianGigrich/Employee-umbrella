@@ -1,0 +1,24 @@
+{
+  "name": "employee-umbrella",
+  "version": "1.0.0",
+  "description": "Module 12 HW, SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianGigrich/Employee-umbrella.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianGigrich/Employee-umbrella/issues"
+  },
+  "homepage": "https://github.com/DianGigrich/Employee-umbrella#readme",
+  "dependencies": {
+    "inquirer": "^8.2.5",
+    "mysql2": "^2.3.3"
+  }
+}
