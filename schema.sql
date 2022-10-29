@@ -5,41 +5,25 @@ USE employee_db;
 
 CREATE TABLE department (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(50)
+  name VARCHAR(30)
 );
 
 CREATE TABLE roles (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(50),
-  salary INT NOT NULL,
+  title VARCHAR(30),
+  salary DECIMAL,
   department INT,
-  FOREIGN KEY (department)
-  REFERENCES department(id)
+  FOREIGN KEY (department) REFERENCES department(id)
   ON DELETE CASCADE
 );
 
-CREATE TABLE employee (
+CREATE TABLE employees (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  first_name VARCHAR(50),
-  role_id,
-  manager_id,
+  first_name VARCHAR(30),
+  last_name VARCAR(30),
+  role_id INT,
+  manager_id INT,
   FOREIGN KEY (role_id) REFERENCES roles(id),
-  FOREIGN KEY (manager_id) REFERENCES employee(id)
+  FOREIGN KEY (manager_id) REFERENCES employees(id)
   ON DELETE CASCADE
 );
-
--- DEPARTMENT
--- ID
--- NAME
-
--- ROLE
--- ID
--- TITLE
--- SALARY
--- DEPARTMENT ID (FROM DEPARTMENT)
-
--- employee
--- ID
--- first_name
--- role_id (from role)
--- manager_id (linked to employee id?)
