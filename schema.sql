@@ -13,7 +13,7 @@ CREATE TABLE roles (
   title VARCHAR(30),
   salary DECIMAL,
   department INT,
-  FOREIGN KEY (department) REFERENCES department(id)
+  FOREIGN KEY (department) REFERENCES department(name)
   ON DELETE CASCADE
 );
 

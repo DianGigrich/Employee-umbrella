@@ -44,30 +44,20 @@ async function beginInquiry() {
         case "Add A Department":
           addADepartment()
           break;
-        // case "Add A Roll":
-        //   addARole()
-        //   break;
-        // case "Add An Employee":
-        //   addAnEmployee()
-        //   break;
-        // case "Update An Employee Role":
-        //   updateEmployee()
-        //   break;
-        // }
-        // console.log("1")
-        // , function (err) {
-        //   if (err) {
-        //     console.error(err)
-        //   } else {
-
-        //     console.log('Answers logged!')
+        case "Add A Role":
+          addARole()
+          break;
+        case "Add An Employee":
+          addAnEmployee()
+          break;
+        case "Update An Employee Role":
+          updateEmployee()
+          break;
       }
     }
-
   } catch (err) {
     console.log(err)
   }
-  // }
 }
 
 
@@ -149,11 +139,9 @@ function viewAllEmployees() {
 }
 
 
-// }
-
 // WHEN I choose to add a department
 // THEN I am prompted to enter the name of the department and that department is added to the database
-async function addADepartment() {
+function addADepartment() {
   inquirer.prompt([
     {
       type: "input",
@@ -182,7 +170,7 @@ function addARole() {
   inquirer.prompt([
     {
       type: "input",
-      message: "Enter a title",
+      message: "Enter title of role:",
       name: "addTitle"
     }, {
       type: "number",
@@ -190,8 +178,8 @@ function addARole() {
       name: "addSalary"
     }, {
       type: "input",
-      message: "Which department?",
-      name: "addToDepartment",
+      message: "Enter their department:",
+      name: "whichDepartment"
     }, {
       type: "confirm",
       message: "Would you like to return to the main menu?",
@@ -199,14 +187,13 @@ function addARole() {
     }
 
   ]).then((response) => {
-    const ans = (response.addTitle, response.addSalary, response.addToDepartment)
-    emp.query(`INSERT INTO roles (role, title, salary, department)
-      VALUES (?);`, [ans], (err, result) => {
+    const ans = (response.addTitle, response.addSalary, response.whichDepartment)
+    emp.query(`INSERT INTO  roles (title, salary, department)
+      VALUES (?);`, [ans], (result) => {
       if (response.returnMainMenu) {
         console.log(result)
         beginInquiry()
       } else {
-        console.log(err)
         console.log("Goodbye")
       }
     })
@@ -215,44 +202,43 @@ function addARole() {
 
 // WHEN I choose to add an employee
 // THEN I am prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-// function addAnEmployee() {
-//   inquirer.prompt([
-//     {
-//       type: "input",
-//       message: "Enter first name",
-//       name: "addFirst"
-//     }, {
-//       type: "input",
-//       message: "Enter last name",
-//       name: "addLast"
-//     }, {
-//       type: "input",
-//       message: "Enter their role",
-//       name: "whichRole"
-//     }, {
-//       type: "input",
-//       message: "What is their manager's id?",
-//       name: "addManager",
-//     }, {
-//       type: "confirm",
-//       message: "Would you like to return to the main menu?",
-//       name: "returnMainMenu"
-//     }
+function addAnEmployee() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "Enter first name",
+      name: "addFirst"
+    }, {
+      type: "input",
+      message: "Enter last name",
+      name: "addLast"
+    }, {
+      type: "input",
+      message: "Enter their role",
+      name: "whichRole"
+    }, {
+      type: "input",
+      message: "What is their manager's id?",
+      name: "addManager",
+    }, {
+      type: "confirm",
+      message: "Would you like to return to the main menu?",
+      name: "returnMainMenu"
+    }
 
-//   ]).then((response) => {
-//     const ans = (response.addFirst, response.addLast, response.whichRole, response.addManager)
-//     emp.query(`INSERT INTO employees (first_name, last_name, role, manager)
-//       VALUES (?);`, [ans], (err, result) => {
-//       if (response.returnMainMenu) {
-//         console.log(result)
-//         beginInquiry()
-//       } else {
-//         console.log(err)
-//         console.log("Goodbye")
-//       }
-//     })
-//   })
-// }
+  ]).then((response) => {
+    const ans = (response.addFirst, response.addLast, response.whichRole, response.addManager)
+    emp.query(`INSERT INTO employees (first_name, last_name, role, manager)
+      VALUES (?);`, [ans], (result) => {
+      if (response.returnMainMenu) {
+        console.log(result)
+        beginInquiry()
+      } else {
+        console.log("Goodbye")
+      }
+    })
+  })
+}
 
 
 // WHEN I choose to update an employee role
@@ -286,30 +272,6 @@ function addARole() {
 // }
 
 beginInquiry()
-
-// function addIntern(answers) {
-//     inquirer.prompt([
-//         {
-//             type: "list",
-//             message: "Please select the school you attend:",
-//             name: "school",
-//             choices: ["University of Washington", "Central Washington University", "Washington University", "Unversity of Community College"]
-//         }, {
-//             type: "confirm",
-//             message: "Would you like to add a team members?",
-//             name: "addNew"
-//         }
-//     ]).then((response) => {
-//         const intern = new Intern(answers.name, answers.id, answers.email, response.school)
-//         employeeArray.push(intern)
-//         console.log(intern)
-//         if (response.addNew) {
-//             Begin()
-//         } else {
-//             writeHTML()
-//         }
-//     })
-// }
 
 app.use((req, res) => {
   res.status(404).end();
