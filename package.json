@@ -2,7 +2,7 @@
   "name": "employee-umbrella",
   "version": "1.0.0",
   "description": "Module 12 HW, SQL",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/DianGigrich/Employee-umbrella#readme",
   "dependencies": {
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
     "inquirer": "^8.2.5",
     "mysql2": "^2.3.3"
   }
