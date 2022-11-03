@@ -23,12 +23,13 @@ Log into MYSQL, enter SOURCE db/schema.sql; and SOURCE db/seeds.sql; exit.
 Then node index.js into the command line to begin.
       
 ## Screenshot
-![screenshot of finished html](./My%20Team.png)
-[video link of demonstration](https://drive.google.com/file/d/1liHWlfVAwaOyradGVmqL0WwOjY2cN7wX/view)
+![screenshot of finished terminal inquiry](./Assets/Desktop%20screenshot.png)
+[video link of demonstration](https://drive.google.com/file/d/1CXnMbZYJo2OqnoP4UAURMnpPJlYBr3BA/view)
 
       
 ## Credits
 Joe Rehfuss for manager ID alias assistance, thank you! and teaching me how to use mysql and inquirer
+W3Schools for syntax
 
 ## License
 This application is covered under the MIT license. See repo for license.

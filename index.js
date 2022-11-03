@@ -19,7 +19,7 @@ async function beginInquiry() {
         type: "list",
         message: "Select an option:",
         name: "firstList",
-        choices: ["View All Departments", "View All Roles", "View All Employees", "View Employees by Department", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role", "Delete An Employee", "EXIT"]
+        choices: ["View All Departments", "View All Roles", "View All Employees", "Add A Department", "Add A Role", "Add An Employee", "Update An Employee Role", "Delete An Employee", "EXIT"]
       }
     ])
 
@@ -32,9 +32,6 @@ async function beginInquiry() {
         break;
       case "View All Employees":
         viewAllEmployees()
-        break;
-      case "View Employees by Department":
-        viewEmpByDepartment()
         break;
       case "Add A Department":
         addADepartment()
@@ -52,7 +49,7 @@ async function beginInquiry() {
         deleteEmployee()
         break;
       case "EXIT":
-        console.log("GOODBYE")
+        console.log("\x1b[33m", "GOODBYE")
         break;
     }
 
@@ -82,7 +79,7 @@ function viewAllDepartments() {
         } else if (answer.returnMain) {
           beginInquiry()
         } else {
-          console.log("Goodbye")
+          console.log("\x1b[33m", "Goodbye")
         }
       })
     }
@@ -110,7 +107,7 @@ function viewAllRoles() {
         } else if (answer.returnMain) {
           beginInquiry()
         } else {
-          console.log("Goodbye")
+          console.log("\x1b[33m", "Goodbye")
         }
       })
     }
@@ -139,7 +136,7 @@ function viewAllEmployees() {
         } else if (answer.returnMain) {
           beginInquiry()
         } else {
-          console.log("Goodbye")
+          console.log("\x1b[33m", "Goodbye")
         }
       })
     }
@@ -156,7 +153,7 @@ function addADepartment() {
       name: "addDepartment"
     }
   ]).then((response) => {
-    console.log(response.addDepartment, "added!")
+    console.log("\x1b[35m", response.addDepartment, "added!")
     emp.query(`INSERT INTO departments (name) VALUES (?);`, [response.addDepartment], (err, result) => {
       if (err) {
         console.log(err)
@@ -173,7 +170,7 @@ function addADepartment() {
           } else if (answer.returnMain) {
             beginInquiry()
           } else {
-            console.log("Goodbye")
+            console.log("\x1b[33m", "Goodbye")
           }
         })
       }
@@ -209,7 +206,7 @@ async function addARole() {
         choices: choicesArr
       }
     ]).then((response) => {
-      console.log("Title:" + response.addTitle + " Salary:" + response.addSalary + " DeptId:" + response.whichDepartment + " added!")
+      console.log("\x1b[35m", "Title:" + response.addTitle + " Salary:" + response.addSalary + " DeptId:" + response.whichDepartment + " added!")
       emp.query(`INSERT INTO roles (title, salary, department)
       VALUES (?, ?, ?);`, [response.addTitle, response.addSalary, response.whichDepartment], (err) => {
         if (err) {
@@ -227,7 +224,7 @@ async function addARole() {
             } else if (answer.returnMain) {
               beginInquiry()
             } else {
-              console.log("Goodbye")
+              console.log("\x1b[33m", "Goodbye")
             }
           })
         }
@@ -259,7 +256,7 @@ function addAnEmployee() {
       name: "addManager",
     }
   ]).then((response) => {
-    console.log("New Employee added")
+    console.log("\x1b[35m", "New Employee added")
     emp.query("INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ? , ?, ?);", [response.addFirst, response.addLast, response.whichRole, response.addManager], (err) => {
       if (err) {
         console.log(err)
@@ -276,7 +273,7 @@ function addAnEmployee() {
           } else if (answer.returnMain) {
             beginInquiry()
           } else {
-            console.log("Goodbye")
+            console.log("\x1b[33m", "Goodbye")
           }
         })
       }
@@ -298,6 +295,7 @@ function updateEmployee() {
       name: "roleChange",
     }
   ]).then((response) => {
+    console.log("\x1b[35m", "Employee updated!")
     emp.query(`UPDATE employees SET role_id = ? WHERE id = ?;`, [response.roleChange, response.changedEmp], (err, result) => {
       if (err) {
         console.log(err)
@@ -314,7 +312,7 @@ function updateEmployee() {
           } else if (answer.returnMain) {
             beginInquiry()
           } else {
-            console.log("Goodbye")
+            console.log("\x1b[33m", "Goodbye")
           }
         })
       }
@@ -332,20 +330,30 @@ function deleteEmployee() {
       type: "confirm",
       message: "Are you sure?",
       name: "Delete",
-    }, {
-      type: "confirm",
-      message: "Would you like to return to the main menu?",
-      name: "returnMain"
     }
   ]).then((response) => {
-    console.log("employee id = " + response + "DELETED")
+    console.log("\x1b[35m", "employee DELETED")
     emp.query(`DELETE FROM employees WHERE id = ?;`, [response.changedEmp], (err, result) => {
       if (err) {
         console.log(err)
       } else if (response.returnMain) {
         beginInquiry()
       } else {
-        console.log("Goodbye")
+        inquirer.prompt([
+          {
+            type: "confirm",
+            message: "Return to menu?",
+            name: "returnMain"
+          }
+        ]).then((answer) => {
+          if (err) {
+            console.error(err)
+          } else if (answer.returnMain) {
+            beginInquiry()
+          } else {
+            console.log("\x1b[33m", "Goodbye")
+          }
+        })
       }
     })
   })
